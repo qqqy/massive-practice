@@ -16,9 +16,33 @@
 
 If `Server listening on 4000` appears in the console, then you are ready for Part One. If not, check the "Troubleshooting" section below.
 
-## PART ONE: Create a Table
+## PART ONE: Creating our Database
 
-1. Before you begin, walk through the **STEP ONE** notes in `server.js` and `controller.js` to get a high-level understanding of the process.
+Here's how we make a request to a database using massive:
+
+1. The front-end makes a request to an endpoint on the server.
+2. The endpoint invokes a handler function.
+3. The handler function invokes one of massive's methods.
+4. The method returns a promise object and makes a request to the database, handing it an sql script. 
+5. The database runs the SQL script and sends a response back to the handler.
+6. The handler processes the reply and sends a response to the front end. 
+
+To keep things simple in this project, the front-end will just be postman. For part one, steps 2 - 6 of the massive journey have already been coded... you'll just need to make the postman request. 
+
+1. Before you begin, find the **STEP ONE** notes to get a high-level understanding of the process. The first one is in `server.js`
+2. Write a post request in postman that will trigger the `create_table` endpoint. You should get a `200 OK` status code back.
+* You will only be able to do this once! After the data has been created, posting will result in a `500`.
+
+Once you've gotten the 200 status, return to tabs and see if you can `select * from student`. If the database returns a list of students, you're ready to move on to part 2.
+
+## PART TWO: A Custom Endpoint
+
+Now, we just want to actually look at our student list. This time, you'll need to make the request AND write the endpoint, but the handler function and the sql script will be already written.
+
+1. Write a GET endpoint, and give it `ctrl.getStudents` as its handler.
+2. Create a GET request to the endpoint in postman.
+
+You should get back a 200 status and the student list. 
 
 
 

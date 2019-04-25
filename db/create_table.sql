@@ -1,19 +1,39 @@
+-- PART ONE (3/3)
+-- When massive is first required into the server, it looks in the project root for a folder called "DB". 
+-- It then creates a method for each .sql file in the folder. When that method is invoked, it returns a 
+-- promise and makes a request to the database. The request will simply be the script inside the .sql file.
+
+-- In this case, we're going to set-up your database. Review the additional notes below:
+
+-- Note that the student table will reject any attempted insertions of null values into the first_name column. 
+-- The first_name column MUST have a value.
+
 CREATE TABLE student (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(150) NOT NULL,
   last_name VARCHAR(150)
 );
 
+-- Each student may take many courses. Each course may have many students. This is a many-to-many relationship. 
+-- This means that we can't just reference the course's id from the student row, and we can't just reference 
+-- the student's id from the course row. We'll solve this problem with the "enrollment" table below.
+
 CREATE TABLE course (
   id SERIAL PRIMARY KEY,
   title VARCHAR(150) NOT NULL
 );
+
+
+-- In our school, TA's MUST be students, each course may have only ONE TA, and each student may only TA for ONE course. This is a one-to-one relationship.
 
 CREATE TABLE teachers_assistant (
   id SERIAL PRIMARY KEY,
   student_id INT REFERENCES student(id) UNIQUE NOT NULL,
   course_id INT REFERENCES course(id) UNIQUE NOT NULL
 );
+
+
+-- Each grade belongs to one student, but a student may have many courses and therefore many grades. This is a one-to-many relationship.
 
 CREATE TABLE grade (
   id SERIAL PRIMARY KEY,
@@ -23,11 +43,17 @@ CREATE TABLE grade (
   passed BOOLEAN DEFAULT false
 );
 
+
+-- On the enrollment table, each row references a student and a course. Each student may have multiple rows on enrollment referencing their courses, which means that each course will have as many rows on enrollment as it has students. This solves the many-to-many problem.
+
 CREATE TABLE enrollment (
   id SERIAL PRIMARY KEY,
   student_id INT REFERENCES student(id) NOT NULL,
   course_id INT REFERENCES course(id) NOT NULL
 );
+
+
+-- Below is the data we're going to be inserting. You may review it if you like, or you can return to PART ONE in the README.md. 
 
 INSERT INTO student (first_name , last_name)
 VALUES
