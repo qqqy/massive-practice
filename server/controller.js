@@ -13,12 +13,17 @@ module.exports = {
     }).catch(err => res.status(500).send(err))
   }
   ,
-  
+
   // PART TWO
   // Note that this time, we're using async/await.
   async getStudents(req, res){
     const db = req.app.get('db');
     let students = await db.get_students().catch(err => console.log("getStudents database query error. \n Error Log:" , err))
     res.status(200).send(students)
+  }
+  ,
+  
+  getCourses(){
+    // PART THREE: Code your handler here.
   }
 }

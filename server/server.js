@@ -19,3 +19,8 @@ app.post('/api/create_table' , ctrl.createTable)
 
 
 // PART TWO: Code your GET endpoint below.
+
+
+// PART THREE: Head over to the controller to code the getCourses handler function.
+
+app.get("/api/get/courses" , ctrl.getCourses)

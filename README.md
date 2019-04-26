@@ -42,7 +42,44 @@ Now, we just want to actually look at our student list. This time, you'll need t
 1. Write a GET endpoint, and give it `ctrl.getStudents` as its handler.
 2. Create a GET request to the endpoint in postman.
 
-You should get back a 200 status and the student list. 
+You should get back a 200 status and the student list. Once you do, you're ready for part three.
+
+## PART THREE: Writing a Handler
+
+In this one, we want to get the list of all the courses. The endpoint and sql script have been written. For this one, you'll need to write the handler and make the post request. The endpoint is `/api/get/courses`, and the sql file is `get_courses`.
+
+<details>
+<summary>Maybe a little more instruction?</summary>
+Alright, let's do this!
+
+1. Add a `res.sendStatus()` method, and pass in `200`. 
+2. Make a postman request in the endpoint.
+* You should get a `200 OK` response. If that's working, you know you're connected! If not, put on your debugging gloves, because something got lost.
+3. Create a const called `db` and set its value equal to the database instance object.
+<details><summary>CODE</summary>
+<p>
+```javascript
+const db = req.app.get('db');
+```
+</p>
+</details>
+4. Create a const called 'databaseResponse'
+5. Set its value equal to the return of db's get_courses method.
+6. Add the `async` and `await` keywords to keep `database response` from becoming a promise object.
+<details><summary>CODE</summary>
+<p>
+```javascript
+async getCourses(req , res){
+  const db = req.app.get('db');
+  const databaseResponse = await db.get_courses()
+  res.sendStatus(200)
+}
+```
+</p>
+</details>
+7. Remove the sendStatus. Instead, send a status of `200` and the database response array.
+8. Add a catch method, just in case.
+* 
 
 
 
